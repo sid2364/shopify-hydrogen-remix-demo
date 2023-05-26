@@ -10,6 +10,9 @@ import {
   useMatches,
   useRouteError,
 } from '@remix-run/react';
+
+import { NostoProvider, NostoSession } from '@nosto/shopify-hydrogen'
+import { NostoSlot } from 'components/nosto/NostoSlot.client'
 import {ShopifySalesChannel, Seo} from '@shopify/hydrogen';
 import invariant from 'tiny-invariant';
 
@@ -82,7 +85,13 @@ export default function App() {
           layout={data.layout}
           key={`${locale.language}-${locale.country}`}
         >
-          <Outlet />
+          <NostoProvider
+            account="shopify-11368366139"
+            recommendationComponent={<NostoSlot />}
+          >
+            <Outlet />
+            <NostoSession />
+          </NostoProvider>
         </Layout>
         <ScrollRestoration />
         <Scripts />

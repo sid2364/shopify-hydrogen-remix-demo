@@ -8,6 +8,7 @@ import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
 import {getHeroPlaceholder} from '~/lib/placeholders';
 import {seoPayload} from '~/lib/seo.server';
 import {routeHeaders, CACHE_SHORT} from '~/data/cache';
+import {NostoHome, NostoPlacement} from "@nosto/shopify-hydrogen";
 
 export const headers = routeHeaders;
 
@@ -106,6 +107,9 @@ export default function Homepage() {
       {featuredProducts && (
         <Suspense>
           <Await resolve={featuredProducts}>
+            <NostoPlacement id="frontpage-nosto-1" />
+            <NostoPlacement id="frontpage-nosto-2" />
+            <NostoHome />
             {({products}) => {
               if (!products?.nodes) return <></>;
               return (
